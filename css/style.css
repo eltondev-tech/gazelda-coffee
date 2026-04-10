@@ -32,7 +32,7 @@ body {
 }
 
 /* ============================================ */
-/* ===== TOPBAR / NAVBAR ===== */
+/* ===== TOPBAR / NAVBAR with HAMBURGER ===== */
 /* ============================================ */
 .topbar {
     display: flex;
@@ -67,6 +67,23 @@ body {
     transform: rotate(5deg);
 }
 
+/* Hamburger Menu Button - hidden on desktop */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    width: 28px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Navigation Menu */
 .nav {
     display: flex;
     gap: 25px;
@@ -85,7 +102,7 @@ body {
 .nav a::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     width: 0;
     height: 2px;
@@ -98,7 +115,8 @@ body {
     width: 100%;
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav a.active {
     color: var(--accent-gold);
 }
 
@@ -106,8 +124,53 @@ body {
     color: var(--accent-gold);
 }
 
+/* Mobile Responsive Navbar */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--coffee);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 40px;
+        gap: 25px;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+    
+    .nav.active {
+        left: 0;
+    }
+    
+    .nav a {
+        font-size: 18px;
+        padding: 12px;
+    }
+    
+    /* Hamburger animation when active */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+}
+
 /* ============================================ */
-/* ===== PAGE HEADER ===== */
+/* ===== PAGE HEADER (UPDATED HEIGHTS & FONTS) ===== */
 /* ============================================ */
 .page-header {
     position: relative;
@@ -118,7 +181,7 @@ body {
 
 .page-header img {
     width: 100%;
-    height: 350px;
+    height: 420px;
     object-fit: cover;
     display: block;
 }
@@ -143,7 +206,7 @@ body {
 
 .page-header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 52px;
+    font-size: 56px;
     letter-spacing: 4px;
     margin-bottom: 10px;
     text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
@@ -151,7 +214,7 @@ body {
 }
 
 .page-header p {
-    font-size: 18px;
+    font-size: 20px;
     opacity: 0.95;
     letter-spacing: 1px;
     font-style: italic;
@@ -214,7 +277,7 @@ body {
 
 .hero img {
     width: 100%;
-    height: 400px;
+    height: 450px;
     object-fit: cover;
     display: block;
 }
@@ -238,7 +301,7 @@ body {
 }
 
 .hero-text h1 {
-    font-size: 48px;
+    font-size: 56px;
     margin-bottom: 15px;
     font-family: 'Playfair Display', serif;
     letter-spacing: 2px;
@@ -1092,7 +1155,7 @@ footer::before {
 }
 
 /* ============================================ */
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE (UPDATED HEADER SIZES) ===== */
 /* ============================================ */
 
 /* Tablet (992px) */
@@ -1103,7 +1166,7 @@ footer::before {
     .brand img {
         width: 50px;
     }
-    .hero h1 {
+    .hero-text h1 {
         font-size: 42px;
     }
     .article-home h2 {
@@ -1120,12 +1183,20 @@ footer::before {
         width: 40px;
     }
 
+    /* Updated header heights */
     .page-header img {
-        height: 280px;
+        height: 300px;
     }
+    .hero img {
+        height: 350px;
+    }
+    
     .page-header h1 {
-        font-size: 42px;
+        font-size: 46px;
         letter-spacing: 3px;
+    }
+    .page-header p {
+        font-size: 18px;
     }
 
     .menu-heading {
@@ -1188,16 +1259,19 @@ footer::before {
         width: 60px;
         bottom: -10px;
     }
-    .hero {
-        padding: 60px 15px;
+    
+    /* Updated hero mobile */
+    .hero img {
+        height: 280px;
     }
-    .hero h1 {
+    .hero-text h1 {
         font-size: 32px;
         letter-spacing: 2px;
     }
-    .hero p {
+    .hero-text p {
         font-size: 15px;
     }
+    
     .home-section {
         padding: 30px 15px;
         gap: 20px;
@@ -1225,23 +1299,16 @@ footer::before {
         width: 100%;
     }
 
-    .topbar {
-        flex-direction: column;
-        text-align: center;
-    }
-    .nav {
-        justify-content: center;
-    }
-
+    /* Updated page header mobile */
     .page-header img {
-        height: 220px;
+        height: 250px;
     }
     .page-header h1 {
-        font-size: 32px;
+        font-size: 34px;
         letter-spacing: 2px;
     }
     .page-header p {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .menu-intro p {
@@ -1372,13 +1439,18 @@ footer::before {
     .tagline {
         font-size: 14px;
     }
-    .hero h1 {
+    
+    .hero img {
+        height: 220px;
+    }
+    .hero-text h1 {
         font-size: 24px;
         letter-spacing: 1px;
     }
-    .hero p {
+    .hero-text p {
         font-size: 13px;
     }
+    
     .sidebar-nav ul li a {
         font-size: 14px;
         padding: 10px 12px;
@@ -1392,14 +1464,14 @@ footer::before {
     }
 
     .page-header img {
-        height: 180px;
+        height: 200px;
     }
     .page-header h1 {
-        font-size: 24px;
+        font-size: 26px;
         letter-spacing: 1px;
     }
     .page-header p {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .category-tab {
